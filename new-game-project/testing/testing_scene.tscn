@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://8m7uruhriham"]
+
+[ext_resource type="PackedScene" uid="uid://2oqfqxx5b61g" path="res://enemy.tscn" id="1_gs37m"]
+[ext_resource type="PackedScene" uid="uid://bpvh71wfng7g6" path="res://behaviors/player.tscn" id="2_rx4tx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rx4tx"]
+size = Vector2(168, 48.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gs37m"]
+size = Vector2(32, 64)
+
+[node name="TestingScene" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(84, 24.25)
+shape = SubResource("RectangleShape2D_rx4tx")
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
+offset_right = 168.0
+offset_bottom = 49.0
+color = Color(0.18787262, 0.13672075, 0.08358785, 1)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(160, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(24, -7)
+shape = SubResource("RectangleShape2D_gs37m")
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D2"]
+offset_left = 8.0
+offset_top = -39.0
+offset_right = 40.0
+offset_bottom = 25.0
+color = Color(0.1882353, 0.13725491, 0.08235294, 1)
+
+[node name="Enemy" parent="." instance=ExtResource("1_gs37m")]
+position = Vector2(96, -32)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="player" parent="." instance=ExtResource("2_rx4tx")]
+position = Vector2(24, -32)

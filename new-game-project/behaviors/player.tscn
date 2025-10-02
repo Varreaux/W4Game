@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpvh71wfng7g6"]
+
+[ext_resource type="Script" uid="uid://cukb00ar2iev7" path="res://behaviors/player.gd" id="1_n740s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vh0yc"]
+size = Vector2(36, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6s7bg"]
+size = Vector2(24, 24)
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource("1_n740s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vh0yc")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -18.0
+offset_top = -18.0
+offset_right = 18.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.72172153, 0.98575, 0.58764786, 1)
+
+[node name="hand" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hand"]
+position = Vector2(28, -12)
+shape = SubResource("RectangleShape2D_6s7bg")
+
+[node name="ColorRect" type="ColorRect" parent="hand"]
+offset_left = 16.0
+offset_top = -24.0
+offset_right = 40.0
+color = Color(0.940221, 0.94430447, 0.3854315, 1)
+
+[connection signal="body_entered" from="hand" to="." method="_on_hand_body_entered"]
