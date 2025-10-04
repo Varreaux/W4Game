@@ -40,4 +40,16 @@ offset_top = -24.0
 offset_right = 40.0
 color = Color(0.940221, 0.94430447, 0.3854315, 1)
 
+[node name="BehaviorPanel" type="Panel" parent="."]
+visible = false
+offset_left = 32.0
+offset_top = -64.0
+offset_right = 40.0
+offset_bottom = -56.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BehaviorPanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [connection signal="body_entered" from="hand" to="." method="_on_hand_body_entered"]

@@ -11,9 +11,13 @@ const BEHAVIORS = [
 
 func _ready():
 	randomize()
-	var behavior_scene = BEHAVIORS[randi() % BEHAVIORS.size()]
-	var behavior_instance = behavior_scene.instantiate()
-	add_child(behavior_instance)
+	
+	for behavior_scene in BEHAVIORS:
+		var behavior_instance = behavior_scene.instantiate()
+		add_child(behavior_instance)
+	#var behavior_scene = BEHAVIORS[randi() % BEHAVIORS.size()]
+	#var behavior_instance = behavior_scene.instantiate()
+	#add_child(behavior_instance)
 
 
 func _physics_process(delta):
