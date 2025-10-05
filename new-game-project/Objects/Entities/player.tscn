@@ -1,0 +1,223 @@
+[gd_scene load_steps=24 format=3 uid="uid://bpvh71wfng7g6"]
+
+[ext_resource type="Script" uid="uid://cukb00ar2iev7" path="res://Scripts/Entities/player.gd" id="1_n740s"]
+[ext_resource type="Texture2D" uid="uid://73wrqxje0h51" path="res://Art Assets/Player.png" id="2_6s7bg"]
+[ext_resource type="Texture2D" uid="uid://bpa54or1ll8i3" path="res://Art Assets/Hand.png" id="3_p1tv4"]
+[ext_resource type="Texture2D" uid="uid://b6p3nbkx7lmx6" path="res://Art Assets/Node.png" id="4_v8blt"]
+[ext_resource type="FontFile" uid="uid://dc4nt2fh2nig0" path="res://Art Assets/Fonts/NotJamChunkySans.ttf" id="5_0mvyc"]
+
+[sub_resource type="Animation" id="Animation_6s7bg"]
+resource_name = "Idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_p7riu"]
+resource_name = "Jump"
+length = 0.2
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_p1tv4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_s1rlt"]
+resource_name = "Run"
+length = 0.6
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.14285713, 0.28571427, 0.42857143),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 1, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2flsv"]
+_data = {
+&"Idle": SubResource("Animation_6s7bg"),
+&"Jump": SubResource("Animation_p7riu"),
+&"RESET": SubResource("Animation_p1tv4"),
+&"Run": SubResource("Animation_s1rlt")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6s7bg"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p1tv4"]
+animation = &"Jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_s1rlt"]
+animation = &"Run"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6s7bg"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p7riu"]
+advance_mode = 2
+advance_expression = "!is_on_floor()"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2flsv"]
+advance_mode = 2
+advance_expression = "is_on_floor()"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_66wev"]
+advance_mode = 2
+advance_expression = "abs(velocity.x) >= 0.2f"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wekjh"]
+advance_mode = 2
+advance_expression = "!is_on_floor()"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xpd7u"]
+advance_mode = 2
+advance_expression = "abs(velocity.x) < 0.2f"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_phn7v"]
+states/Idle/node = SubResource("AnimationNodeAnimation_6s7bg")
+states/Idle/position = Vector2(320, 87)
+states/Jump/node = SubResource("AnimationNodeAnimation_p1tv4")
+states/Jump/position = Vector2(453, 154)
+states/Run/node = SubResource("AnimationNodeAnimation_s1rlt")
+states/Run/position = Vector2(654, 100)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_6s7bg"), "Idle", "Jump", SubResource("AnimationNodeStateMachineTransition_p7riu"), "Jump", "Idle", SubResource("AnimationNodeStateMachineTransition_2flsv"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_66wev"), "Run", "Jump", SubResource("AnimationNodeStateMachineTransition_wekjh"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_xpd7u")]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6s7bg"]
+radius = 6.0
+height = 24.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_2cxmk"]
+font = ExtResource("5_0mvyc")
+font_size = 6
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6s7bg"]
+size = Vector2(11, 8)
+
+[node name="player" type="CharacterBody2D"]
+texture_filter = 1
+collision_layer = 2
+script = ExtResource("1_n740s")
+move_speed = 100.0
+jump_power = -250.0
+gravity = 600.0
+gravity_shorthop = 1200.0
+hand_shoot_speed = 300.0
+hand_shoot_time = 0.2
+hand_idle_time = 0.1
+behaviors_menu_position = Vector2(-20, 40)
+ball_throw_power = 250.0
+
+[node name="Art" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -16)
+texture = ExtResource("2_6s7bg")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Art"]
+libraries = {
+&"": SubResource("AnimationLibrary_2flsv")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="Art"]
+tree_root = SubResource("AnimationNodeStateMachine_phn7v")
+advance_expression_base_node = NodePath("../..")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -12)
+shape = SubResource("CapsuleShape2D_6s7bg")
+
+[node name="HandParent" type="Node" parent="."]
+
+[node name="Hand" type="Area2D" parent="HandParent"]
+texture_filter = 1
+position = Vector2(49, -12)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Art" type="Sprite2D" parent="HandParent/Hand"]
+z_index = -1
+texture = ExtResource("3_p1tv4")
+
+[node name="GrabbedBehavior" type="Sprite2D" parent="HandParent/Hand/Art"]
+visible = false
+position = Vector2(0, 5)
+texture = ExtResource("4_v8blt")
+
+[node name="Label" type="Label" parent="HandParent/Hand/Art/GrabbedBehavior"]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -116.0
+offset_top = -28.0
+offset_right = 84.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Behavior()"
+label_settings = SubResource("LabelSettings_2cxmk")
+horizontal_alignment = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HandParent/Hand"]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_6s7bg")
+
+[node name="BehaviorPanel" type="Panel" parent="."]
+offset_left = -11.685
+offset_top = -57.945
+offset_right = -3.6850004
+offset_bottom = -49.945
+scale = Vector2(0.3, 0.3)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BehaviorPanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
+[node name="Behaviors" type="Node2D" parent="."]
+
+[connection signal="body_entered" from="HandParent/Hand" to="." method="_on_hand_body_entered"]

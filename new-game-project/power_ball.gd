@@ -1,14 +1,15 @@
-extends Area2D
+class_name PowerBall
 
-var behavior
-var speed = 300
-var direction = Vector2.ZERO
+extends RigidBody2D
 
-func _physics_process(delta):
-	position += direction * speed * delta
+var behavior: Behavior
+var alive_time: float
 
+func _process(delta: float) -> void:
+	alive_time += delta
+	
 func _on_body_entered(body):
-	if body.name != "Ground" and behavior:
-		body.add_child(behavior)
-		behavior.owner = body
-		queue_free()
+	print("Boop")
+	if body is Entity and not (body is Player and alive_time < 0.5):
+		body.add_behavior(behavior)
+		call_deferred("queue_free")

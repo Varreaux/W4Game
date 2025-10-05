@@ -1,9 +1,10 @@
-extends Node
 class_name ExplodeOnWall
 
+extends Behavior
 
 func _physics_process(_delta):
-	var entity = get_parent()
+	if not active: return
+
 	if entity.is_on_wall():
 		entity.queue_free()
 		print("BOOM!")

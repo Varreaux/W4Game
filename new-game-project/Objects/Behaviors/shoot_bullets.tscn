@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cw1m15h6prk6t"]
+
+[ext_resource type="Script" uid="uid://bb61bke50qe2q" path="res://Scripts/behaviors/shoot_bullets.gd" id="1_62d0e"]
+
+[node name="ShootBullets" type="Node2D"]
+script = ExtResource("1_62d0e")

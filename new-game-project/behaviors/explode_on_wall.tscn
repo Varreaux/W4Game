@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4i4c0rjco0xs"]
-
-[ext_resource type="Script" uid="uid://blpfg8bm1u80j" path="res://behaviors/explode_on_wall.gd" id="1_toxlr"]
-
-[node name="ExplodeOnWall" type="Node"]
-script = ExtResource("1_toxlr")

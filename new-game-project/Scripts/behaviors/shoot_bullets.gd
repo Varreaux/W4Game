@@ -1,13 +1,12 @@
-extends Node
 class_name ShootBullets
+
+extends Behavior
 
 var shoot_timer = 0.0
 
-func _ready():
-	print("ShootBullets is running!")
-
-
 func _process(delta):
+	if not active: return
+
 	shoot_timer += delta
 	if shoot_timer >= 2.0:
 		shoot_timer = 0.0

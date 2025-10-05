@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctd4u1ur4d8wt"]
+
+[ext_resource type="Texture2D" uid="uid://bo4uty76oxir1" path="res://Worldgen/sprites/ladder.png" id="1_p0vlq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5q5h1"]
+
+[node name="Player" type="Node2D" groups=["player"]]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="." groups=["player"]]
+disable_mode = 2
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" groups=["player"]]
+shape = SubResource("CapsuleShape2D_5q5h1")
+debug_color = Color(0.82403255, 0.27486748, 0.7297948, 0.41960785)
+
+[node name="Ladder" type="Sprite2D" parent="RigidBody2D" groups=["player"]]
+modulate = Color(0.34509805, 1, 1, 1)
+scale = Vector2(0.29894224, 0.118778385)
+texture = ExtResource("1_p0vlq")

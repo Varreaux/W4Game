@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cusj3ymf0bett"]
+
+[ext_resource type="Texture2D" uid="uid://bo4uty76oxir1" path="res://sprites/ladder.png" id="1_hpvv5"]
+
+[node name="Door" type="Node2D"]
+
+[node name="Ladder" type="Sprite2D" parent="."]
+position = Vector2(19, 36.375)
+scale = Vector2(1, 0.3580402)
+texture = ExtResource("1_hpvv5")

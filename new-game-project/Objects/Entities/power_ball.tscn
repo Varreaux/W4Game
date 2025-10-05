@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://c6lfa8w7m53v"]
+
+[ext_resource type="Script" uid="uid://bg5goju75cw1a" path="res://power_ball.gd" id="1_01no8"]
+[ext_resource type="Texture2D" uid="uid://b6p3nbkx7lmx6" path="res://Art Assets/Node.png" id="2_una3d"]
+[ext_resource type="FontFile" uid="uid://dc4nt2fh2nig0" path="res://Art Assets/Fonts/NotJamChunkySans.ttf" id="3_l4vw3"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_una3d"]
+friction = 0.1
+rough = true
+bounce = 0.9
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_alefx"]
+radius = 6.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_tgkhe"]
+font = ExtResource("3_l4vw3")
+font_size = 6
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l4vw3"]
+radius = 6.0
+
+[node name="PowerBall" type="RigidBody2D"]
+texture_filter = 1
+collision_layer = 0
+physics_material_override = SubResource("PhysicsMaterial_una3d")
+gravity_scale = 0.4
+lock_rotation = true
+contact_monitor = true
+max_contacts_reported = 2
+script = ExtResource("1_01no8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_una3d")
+offset = Vector2(0.5, 0.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_alefx")
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -98.0
+offset_top = -13.0
+offset_right = 102.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Behavior()"
+label_settings = SubResource("LabelSettings_tgkhe")
+horizontal_alignment = 1
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_l4vw3")
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_body_entered"]
