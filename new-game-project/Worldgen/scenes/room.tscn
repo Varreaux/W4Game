@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://cr1qqrothewpa"]
+[gd_scene load_steps=9 format=4 uid="uid://cr1qqrothewpa"]
 
 [ext_resource type="Script" uid="uid://b6ilciaa844mp" path="res://Worldgen/Scripts/room.gd" id="1_ffxv4"]
 [ext_resource type="PackedScene" uid="uid://bmuagxe2yr32w" path="res://Worldgen/scenes/ladder.tscn" id="2_14vil"]
@@ -6,6 +6,7 @@
 [ext_resource type="TileSet" uid="uid://c8en1tdi4t6yr" path="res://Maps/game_tileset.tres" id="4_rdk1a"]
 [ext_resource type="PackedScene" uid="uid://2oqfqxx5b61g" path="res://Objects/Entities/zombo.tscn" id="5_rdk1a"]
 [ext_resource type="PackedScene" uid="uid://b4eqyouvfqluv" path="res://Objects/Entities/slime.tscn" id="6_brnjm"]
+[ext_resource type="PackedScene" uid="uid://ba7ac6jxdpb64" path="res://Objects/Entities/rock.tscn" id="7_uf68g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_14vil"]
 size = Vector2(1129.5, 514)
@@ -42,52 +43,67 @@ position = Vector2(575, 391)
 shape = SubResource("RectangleShape2D_14vil")
 
 [node name="Enemy" parent="." instance=ExtResource("5_rdk1a")]
-position = Vector2(391, 268)
+position = Vector2(392, 288)
 
 [node name="Enemy3" parent="." instance=ExtResource("5_rdk1a")]
-position = Vector2(721, 252)
+position = Vector2(720, 288)
 
 [node name="Enemy5" parent="." instance=ExtResource("5_rdk1a")]
-position = Vector2(1041, 244)
+position = Vector2(1040, 288)
 
 [node name="Enemy2" parent="." instance=ExtResource("5_rdk1a")]
-position = Vector2(553, 260)
+position = Vector2(552, 288)
 
 [node name="Enemy7" parent="." instance=ExtResource("5_rdk1a")]
-position = Vector2(444, 412)
+position = Vector2(440, 448)
 
 [node name="Enemy8" parent="." instance=ExtResource("5_rdk1a")]
-position = Vector2(596, 396)
+position = Vector2(600, 448)
 
 [node name="Enemy9" parent="." instance=ExtResource("5_rdk1a")]
 position = Vector2(108, 412)
 
 [node name="Enemy10" parent="." instance=ExtResource("5_rdk1a")]
-position = Vector2(519, 548)
+position = Vector2(560, 608)
 
 [node name="Enemy14" parent="." instance=ExtResource("5_rdk1a")]
-position = Vector2(87, 572)
+position = Vector2(88, 608)
 
 [node name="Enemy15" parent="." instance=ExtResource("5_rdk1a")]
-position = Vector2(255, 580)
+position = Vector2(264, 608)
 
 [node name="Enemy16" parent="." instance=ExtResource("5_rdk1a")]
-position = Vector2(820, 406)
+position = Vector2(824, 448)
 
 [node name="Enemy17" parent="." instance=ExtResource("5_rdk1a")]
-position = Vector2(988, 414)
+position = Vector2(984, 448)
 
 [node name="Enemy12" parent="." instance=ExtResource("5_rdk1a")]
-position = Vector2(839, 540)
+position = Vector2(720, 608)
+
+[node name="Slime4" parent="." instance=ExtResource("6_brnjm")]
+position = Vector2(975, 601)
 
 [node name="Slime" parent="." instance=ExtResource("6_brnjm")]
-position = Vector2(914, 252)
+position = Vector2(912, 288)
+
+[node name="Slime3" parent="." instance=ExtResource("6_brnjm")]
+position = Vector2(408, 608)
 
 [node name="Slime2" parent="." instance=ExtResource("6_brnjm")]
-position = Vector2(280, 394)
+position = Vector2(280, 448)
 
-[node name="Slime" parent="Slime2" instance=ExtResource("6_brnjm")]
-position = Vector2(126, 171)
+[node name="Rock" parent="." instance=ExtResource("7_uf68g")]
+position = Vector2(464, 288)
 
-[node name="Slime" parent="Slime2/Slime" instance=ExtResource("6_brnjm")]
-position = Vector2(567, -7)
+[node name="Rock2" parent="." instance=ExtResource("7_uf68g")]
+position = Vector2(720, 448)
+
+[node name="Rock3" parent="." instance=ExtResource("7_uf68g")]
+position = Vector2(328, 608)
+
+[node name="Rock4" parent="." instance=ExtResource("7_uf68g")]
+position = Vector2(888, 608)
+
+[node name="Rock5" parent="." instance=ExtResource("7_uf68g")]
+position = Vector2(816, 288)

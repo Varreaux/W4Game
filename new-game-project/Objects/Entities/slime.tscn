@@ -118,11 +118,11 @@ states/Walk/position = Vector2(535, 153)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_epg4t"), "Idle", "Jump", SubResource("AnimationNodeStateMachineTransition_3yqyl"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_wujgv"), "Walk", "Jump", SubResource("AnimationNodeStateMachineTransition_hb8ge"), "Jump", "Idle", SubResource("AnimationNodeStateMachineTransition_e1ltt"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_4gyqm")]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4gyqm"]
-radius = 7.0
+radius = 15.0
 height = 32.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4gyqm"]
-size = Vector2(12, 32)
+size = Vector2(28, 32)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0mvyc"]
 bg_color = Color(0, 0, 0, 1)

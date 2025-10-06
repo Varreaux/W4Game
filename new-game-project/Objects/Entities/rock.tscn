@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://ba7ac6jxdpb64"]
+
+[ext_resource type="Script" uid="uid://f7rw6n30065n" path="res://Scripts/Entities/rock.gd" id="1_ag3fl"]
+[ext_resource type="Texture2D" uid="uid://b380nno5p843g" path="res://Art Assets/Rock.png" id="2_ag3fl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ag3fl"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4gyqm"]
+size = Vector2(32, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0mvyc"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2cxmk"]
+bg_color = Color(0.6360612, 0, 0.09554685, 1)
+
+[sub_resource type="Theme" id="Theme_4gyqm"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_0mvyc")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_2cxmk")
+
+[node name="Rock" type="CharacterBody2D" groups=["enemies"]]
+texture_filter = 1
+collision_layer = 3
+collision_mask = 65
+script = ExtResource("1_ag3fl")
+gravity = 600.0
+max_health = 30
+
+[node name="Art" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+texture = ExtResource("2_ag3fl")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_ag3fl")
+
+[node name="Behaviors" type="Node2D" parent="."]
+position = Vector2(0, -16)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(0, -16)
+collision_layer = 32
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_4gyqm")
+
+[node name="HPBar" type="ProgressBar" parent="."]
+z_index = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = 1.0
+offset_right = 10.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_4gyqm")
+max_value = 1.0
+value = 0.28
+show_percentage = false
