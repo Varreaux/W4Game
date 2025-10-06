@@ -5,7 +5,8 @@ var actions = [
 	"shoot_action",
 	"jump_action",
 	"slash_action",
-	"explode_action"
+	"explode_action",
+	"reverse_action"
 ]
 
 func _enter_tree() -> void:

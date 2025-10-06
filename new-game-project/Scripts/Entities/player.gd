@@ -67,7 +67,7 @@ func _physics_process(delta: float) -> void:
 		if not is_on_floor():
 			velocity.y += gravity * delta
 			if do_short_hop and not Input.is_action_pressed("Jump") and velocity.y < 0:
-				velocity.y += gravity_shorthop * delta
+				velocity.y += gravity_shorthop * delta * -up_direction.y
 				
 		if is_on_floor():
 			if velocity.y >= 0:
@@ -128,7 +128,7 @@ func _input(event):
 		stock_or_pull()
 		
 	if event.is_action_pressed("Jump") and (is_on_floor() or on_ladder):
-		velocity.y = jump_power
+		velocity.y = jump_power * -up_direction.y
 		do_short_hop = true
 		on_ladder = false
 	if event.is_action_pressed("Attack"):
@@ -274,6 +274,7 @@ func gain_exp():
 		level += 1
 		experience = 0
 		hp = max_health
+		hp_bar.value = hp / max_health
 		lvl_label.text = "Lv. %d" % [level]
 	xp_bar.value = (float(experience) / (5.0 * float(level)))
 	

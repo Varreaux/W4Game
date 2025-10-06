@@ -5,7 +5,8 @@ var actions = [
 	"jump_action",
 	"slash_action",
 	"explode_action",
-	"walk_action"
+	"walk_action",
+	"reverse_action"
 ]
 func _enter_tree() -> void:
 	condition_name = "Forever"

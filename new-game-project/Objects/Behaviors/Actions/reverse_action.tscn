@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cirlwckp3t6t6"]
+
+[ext_resource type="Script" uid="uid://divml1iurimmh" path="res://Scripts/behaviors/Actions/reverse.gd" id="1_hsfd4"]
+
+[node name="Reverse" type="Node2D"]
+script = ExtResource("1_hsfd4")
+cooldown_time = 1.0
