@@ -15,6 +15,14 @@ run/main_scene="uid://hmdl7ev8bxit"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[display]
+
+window/stretch/mode="viewport"
+
+[global_group]
+
+player=""
+
 [input]
 
 open_power_menu={
@@ -61,6 +69,7 @@ Down={
 2d_physics/layer_4="Hitbox"
 2d_physics/layer_5="PlayerHurtbox"
 2d_physics/layer_6="EnemyHurtbox"
+2d_physics/layer_7="Ladder"
 
 [rendering]
 

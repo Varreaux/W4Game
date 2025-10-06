@@ -1,11 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://cusj3ymf0bett"]
+[gd_scene load_steps=5 format=3 uid="uid://cusj3ymf0bett"]
 
 [ext_resource type="Texture2D" uid="uid://3xccdusxrdno" path="res://Art Assets/Door.png" id="1_gvcu8"]
+[ext_resource type="Script" uid="uid://45amsqh3h0uu" path="res://Scripts/Objects/door.gd" id="1_ql8jg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gvcu8"]
 size = Vector2(6, 64)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g3lkj"]
+size = Vector2(16, 64)
+
 [node name="Door" type="Node2D"]
+script = ExtResource("1_ql8jg")
 
 [node name="Ladder" type="Sprite2D" parent="."]
 position = Vector2(0, -32)
@@ -18,3 +23,13 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(0, -32)
 shape = SubResource("RectangleShape2D_gvcu8")
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_g3lkj")
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]

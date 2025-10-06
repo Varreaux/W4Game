@@ -54,7 +54,6 @@ tilemap_path = NodePath("TileMapLayer_ground")
 source_id = 1
 min_margin = 8
 top_wall_tiles = 4
-corridor_width = 4
 entrance_height = 4
 ladder_scene = ExtResource("2_14vil")
 door_scene = ExtResource("3_jxe34")
@@ -69,9 +68,8 @@ tile_set = SubResource("TileSet_85yof")
 [node name="laddersDoors" type="Node2D" parent="."]
 
 [node name="Area2D" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
-collision_mask = 0
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(575, 391)

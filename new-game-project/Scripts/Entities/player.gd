@@ -4,9 +4,12 @@ extends Entity
 
 enum {HAND_INACTIVE, HAND_SHOOTING, HAND_IDLING, HAND_RETURNING, HAND_RETURNING_HOLDING, HAND_HOLDING}
 
+@export_flags_2d_physics var ladder_layer
+
 @export var move_speed: float
 @export var jump_power: float
 @export var gravity_shorthop: float
+@export var ladder_climb_speed: float
 
 @export var hand_shoot_direction: Vector2
 @export var hand_shoot_speed: float
@@ -28,6 +31,10 @@ var hand_state_counter: float = 0
 var current_enemy = null
 var enemy_behaviors = []
 var held_behavior: Behavior
+var on_ladder: bool = false
+var touching_ladder: bool = false
+var ladder: Node2D
+
 static var instance: Player
 
 func _ready():
@@ -38,24 +45,34 @@ func _ready():
 	instance = self
 	
 func _physics_process(delta: float) -> void:
-	#Handle horizontal movement
-	var _hor: float = Input.get_axis("Left", "Right")
-	velocity.x = _hor * move_speed
 	
-	#Sprite flip
-	if _hor != 0:
-		$Art.flip_h = true if _hor < 0 else false
-	
-	#Handle falling
-	if not is_on_floor():
-		velocity.y += gravity * delta
-		if do_short_hop and not Input.is_action_pressed("Jump") and velocity.y < 0:
-			velocity.y += gravity_shorthop * delta
-			
-	if is_on_floor():
-		if velocity.y >= 0:
-			do_short_hop = false
-	
+	if not on_ladder:
+		#Handle horizontal movement
+		var _hor: float = Input.get_axis("Left", "Right")
+		velocity.x = _hor * move_speed
+		
+		#Sprite flip
+		if _hor != 0:
+			$Art.flip_h = true if _hor < 0 else false
+		
+		#Handle falling
+		if not is_on_floor():
+			velocity.y += gravity * delta
+			if do_short_hop and not Input.is_action_pressed("Jump") and velocity.y < 0:
+				velocity.y += gravity_shorthop * delta
+				
+		if is_on_floor():
+			if velocity.y >= 0:
+				do_short_hop = false
+				
+		if touching_ladder:
+			if Input.is_action_just_pressed("Up") or Input.is_action_just_pressed("Down"):
+				on_ladder = true
+	else:
+		global_position.x = ladder.global_position.x + 16
+		var _vert: float = Input.get_axis("Up", "Down")
+		velocity.y = _vert * ladder_climb_speed
+		global_position.y = clamp(global_position.y, ladder.global_position.y, ladder.global_position.y + 160)
 	#Execute movement
 	move_and_slide()
 	
@@ -98,9 +115,10 @@ func _input(event):
 	if event.is_action_pressed("open_power_menu"):
 		stock_or_pull()
 		
-	if event.is_action_pressed("Jump") and is_on_floor():
+	if event.is_action_pressed("Jump") and (is_on_floor() or on_ladder):
 		velocity.y = jump_power
 		do_short_hop = true
+		on_ladder = false
 	if event.is_action_pressed("Attack"):
 		attack()
 
@@ -114,6 +132,7 @@ func stock_or_pull():
 		player_behaviors = get_player_behaviors()
 		_show_behavior_menu(player_behaviors)
 	if hand_state == HAND_HOLDING:
+		if $Behaviors.get_child_count() >= 4: return
 		held_behavior.get_parent().remove_child(held_behavior)
 		get_node("Behaviors").add_child(held_behavior)
 		held_behavior.owner = self
@@ -209,3 +228,13 @@ func get_mouse_diff() -> Vector2:
 
 func get_mouse_direction() -> Vector2:
 	return (get_global_mouse_position() - global_position).normalized()
+
+
+func _on_ladder_detector_area_entered(area: Area2D) -> void:
+	touching_ladder = true
+	ladder = area as Node2D
+	print("OnLadder")
+
+func _on_ladder_detector_area_exited(_area: Area2D) -> void:
+	touching_ladder = false
+	print("OffLadder")

@@ -5,7 +5,7 @@ extends Action
 @export_flags_2d_physics var collision_mask_enemy
 
 func _ready() -> void:
-	cooldown_time = randf_range(0.5, 2)
+	cooldown_time = randf_range(0.4, 1.5)
 	
 func on_trigger(_bypass_cooldown: bool = false):
 	if cooldown_counter > cooldown_time || _bypass_cooldown:

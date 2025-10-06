@@ -9,15 +9,6 @@ texture_filter = 1
 
 [node name="Room" parent="." instance=ExtResource("1_40ljq")]
 
-[node name="Room2" parent="." instance=ExtResource("1_40ljq")]
-position = Vector2(1152, 0)
-
-[node name="Room3" parent="." instance=ExtResource("1_40ljq")]
-position = Vector2(0, 528)
-
-[node name="Room4" parent="." instance=ExtResource("1_40ljq")]
-position = Vector2(1152, 528)
-
 [node name="player" parent="." instance=ExtResource("2_jso7u")]
 position = Vector2(84, 284)
 

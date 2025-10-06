@@ -2,7 +2,7 @@ extends Action
 
 @onready var bullet = preload("res://Objects/Entities/bullet.tscn")
 
-var shooting_speed = randf_range(80, 200)
+var shooting_speed = randf_range(130, 250)
 @export_flags_2d_physics var collision_mask_player
 @export_flags_2d_physics var collision_mask_enemy
 

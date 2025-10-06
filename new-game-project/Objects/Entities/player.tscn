@@ -144,20 +144,22 @@ bg_color = Color(0.6360612, 0, 0.09554685, 1)
 ProgressBar/styles/background = SubResource("StyleBoxFlat_0mvyc")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_2cxmk")
 
-[node name="player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D" groups=["player"]]
 texture_filter = 1
-collision_layer = 2
+collision_layer = 6
+collision_mask = 65
 script = ExtResource("1_n740s")
 move_speed = 100.0
 jump_power = -250.0
 gravity_shorthop = 1200.0
+ladder_climb_speed = 100.0
 hand_shoot_speed = 300.0
 hand_shoot_time = 0.3
 hand_idle_time = 0.1
 behaviors_menu_position = Vector2(-20, 40)
 ball_throw_power = 250.0
 gravity = 600.0
-max_health = 10
+max_health = 4
 
 [node name="Art" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -217,6 +219,7 @@ position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_6s7bg")
 
 [node name="BehaviorPanel" type="Panel" parent="."]
+visible = false
 offset_left = -11.685
 offset_top = -57.945
 offset_right = -3.6850004
@@ -241,6 +244,15 @@ collision_mask = 8
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_0mvyc")
 
+[node name="LadderDetector" type="Area2D" parent="."]
+position = Vector2(0, 1)
+collision_layer = 0
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LadderDetector"]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_0mvyc")
+
 [node name="HPBar" type="ProgressBar" parent="."]
 z_index = 1
 anchors_preset = 8
@@ -260,3 +272,5 @@ value = 0.28
 show_percentage = false
 
 [connection signal="body_entered" from="HandParent/Hand" to="." method="_on_hand_body_entered"]
+[connection signal="area_entered" from="LadderDetector" to="." method="_on_ladder_detector_area_entered"]
+[connection signal="area_exited" from="LadderDetector" to="." method="_on_ladder_detector_area_exited"]
