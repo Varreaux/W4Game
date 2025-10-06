@@ -1,28 +1,35 @@
-[gd_scene load_steps=4 format=3 uid="uid://hmdl7ev8bxit"]
+[gd_scene load_steps=5 format=3 uid="uid://hmdl7ev8bxit"]
 
 [ext_resource type="PackedScene" uid="uid://cr1qqrothewpa" path="res://Worldgen/scenes/room.tscn" id="1_40ljq"]
+[ext_resource type="Script" uid="uid://gth5juchv6e5" path="res://Worldgen/Scripts/roomManager.gd" id="1_hyobi"]
 [ext_resource type="PackedScene" uid="uid://bpvh71wfng7g6" path="res://Objects/Entities/player.tscn" id="2_jso7u"]
-[ext_resource type="PackedScene" uid="uid://2oqfqxx5b61g" path="res://enemy.tscn" id="3_5nq1w"]
+[ext_resource type="Texture2D" uid="uid://c8mjqdwgveixl" path="res://Art Assets/Wall.png" id="5_mdqsx"]
 
 [node name="Game" type="Node2D"]
 texture_filter = 1
 
-[node name="Room" parent="." instance=ExtResource("1_40ljq")]
+[node name="Parallax2D" type="Parallax2D" parent="."]
+z_index = -20
+scroll_scale = Vector2(0.2, 0.2)
+scroll_offset = Vector2(414.395, 0)
+repeat_size = Vector2(128, 128)
+repeat_times = 8
+screen_offset = Vector2(11.245, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+modulate = Color(0.37766072, 0.41996366, 0.54445356, 1)
+position = Vector2(384, 384)
+texture = ExtResource("5_mdqsx")
+
+[node name="Rooms" type="Node2D" parent="." node_paths=PackedStringArray("first_room")]
+z_index = -3
+script = ExtResource("1_hyobi")
+room_scene = ExtResource("1_40ljq")
+rooms_parent_path = NodePath(".")
+first_room = NodePath("Room")
+next_offset = Vector2(1152, 0)
+
+[node name="Room" parent="Rooms" instance=ExtResource("1_40ljq")]
 
 [node name="player" parent="." instance=ExtResource("2_jso7u")]
 position = Vector2(84, 284)
-
-[node name="Enemy" parent="." instance=ExtResource("3_5nq1w")]
-position = Vector2(246, 280)
-
-[node name="Enemy3" parent="." instance=ExtResource("3_5nq1w")]
-position = Vector2(576, 264)
-
-[node name="Enemy4" parent="." instance=ExtResource("3_5nq1w")]
-position = Vector2(744, 272)
-
-[node name="Enemy5" parent="." instance=ExtResource("3_5nq1w")]
-position = Vector2(896, 256)
-
-[node name="Enemy2" parent="." instance=ExtResource("3_5nq1w")]
-position = Vector2(408, 272)

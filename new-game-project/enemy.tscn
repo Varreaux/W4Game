@@ -1,7 +1,8 @@
-[gd_scene load_steps=23 format=3 uid="uid://2oqfqxx5b61g"]
+[gd_scene load_steps=24 format=3 uid="uid://2oqfqxx5b61g"]
 
 [ext_resource type="Script" uid="uid://c767kqehm52q6" path="res://Scripts/Entities/enemy.gd" id="1_7k104"]
 [ext_resource type="Texture2D" uid="uid://8lrsthf1ugg1" path="res://Art Assets/Zombo.png" id="2_4gyqm"]
+[ext_resource type="Script" uid="uid://cw5moqocd8gpo" path="res://Scripts/Entities/hitbox.gd" id="3_qi2p4"]
 
 [sub_resource type="Animation" id="Animation_4gyqm"]
 resource_name = "Idle"
@@ -171,6 +172,16 @@ collision_layer = 32
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_4gyqm")
+
+[node name="ContactHitbox" type="Area2D" parent="."]
+position = Vector2(0, -16)
+collision_layer = 8
+collision_mask = 16
+script = ExtResource("3_qi2p4")
+damage = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactHitbox"]
 shape = SubResource("RectangleShape2D_4gyqm")
 
 [node name="HPBar" type="ProgressBar" parent="."]

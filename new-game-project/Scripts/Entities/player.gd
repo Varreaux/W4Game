@@ -43,6 +43,8 @@ func _ready():
 	hand.visible = false
 	hand_state = HAND_INACTIVE
 	instance = self
+	was_hurt.connect(hitstop_on_hurt)
+	Engine.time_scale = 1
 	
 func _physics_process(delta: float) -> void:
 	
@@ -78,7 +80,7 @@ func _physics_process(delta: float) -> void:
 	
 func _process(delta: float) -> void:
 	if hp <= 0:
-		call_deferred("queue_free")
+		get_tree().reload_current_scene()
 	
 	#Manage hand movements
 	hand_state_counter += delta
@@ -229,7 +231,6 @@ func get_mouse_diff() -> Vector2:
 func get_mouse_direction() -> Vector2:
 	return (get_global_mouse_position() - global_position).normalized()
 
-
 func _on_ladder_detector_area_entered(area: Area2D) -> void:
 	touching_ladder = true
 	ladder = area as Node2D
@@ -238,3 +239,13 @@ func _on_ladder_detector_area_entered(area: Area2D) -> void:
 func _on_ladder_detector_area_exited(_area: Area2D) -> void:
 	touching_ladder = false
 	print("OffLadder")
+
+func hitstop_on_hurt():
+	hitstop(0.02, 0.5)
+
+func hitstop(time_scale: float, duration: float):
+	modulate = Color.RED
+	Engine.time_scale = time_scale
+	await get_tree().create_timer(duration * time_scale).timeout
+	Engine.time_scale = 1
+	modulate = Color.WHITE
