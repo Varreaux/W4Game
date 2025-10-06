@@ -157,7 +157,7 @@ hand_idle_time = 0.1
 behaviors_menu_position = Vector2(-20, 40)
 ball_throw_power = 250.0
 gravity = 600.0
-max_health = 3
+max_health = 10
 
 [node name="Art" type="Sprite2D" parent="."]
 texture_filter = 1

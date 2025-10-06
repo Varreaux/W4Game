@@ -2,10 +2,11 @@ class_name Enemy
 
 extends Entity
 
+const ACTIVE_RANGE = 300
 const BEHAVIORS = [
-	preload("res://Objects/Behaviors/Conditions/on_ground.tscn"),
-	preload("res://Objects/Behaviors/Conditions/forever.tscn"),
-	preload("res://Objects/Behaviors/Conditions/on_hurt.tscn")
+	preload("res://Objects/Behaviors/Conditions/on_ground_condition.tscn"),
+	preload("res://Objects/Behaviors/Conditions/forever_condition.tscn"),
+	preload("res://Objects/Behaviors/Conditions/on_hurt_condition.tscn")
 ]
 
 func _ready():
@@ -22,10 +23,14 @@ func _ready():
 	#add_child(behavior_instance)
 
 func _physics_process(delta):
+	if get_player_range() > ACTIVE_RANGE: return
+	
 	velocity.y += gravity * delta
-	velocity.x = 0  # move right
 	move_and_slide()
 
 func _process(_delta: float) -> void:
 	if hp <= 0:
 		call_deferred("queue_free")
+
+func get_player_range() -> float:
+	return (Player.instance.global_position - global_position).length()

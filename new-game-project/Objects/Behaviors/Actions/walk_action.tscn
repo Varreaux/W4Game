@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8a5j6kfy3jv7"]
+
+[ext_resource type="Script" uid="uid://dramn3qgm0ims" path="res://Scripts/behaviors/Actions/walk.gd" id="1_pnswu"]
+
+[node name="Walk" type="Node2D"]
+script = ExtResource("1_pnswu")
+cooldown_time = 1.0

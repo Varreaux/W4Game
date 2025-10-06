@@ -58,7 +58,7 @@ func _physics_process(delta: float) -> void:
 	
 	#Execute movement
 	move_and_slide()
-
+	
 func _process(delta: float) -> void:
 	if hp <= 0:
 		call_deferred("queue_free")

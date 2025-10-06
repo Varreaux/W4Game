@@ -1,7 +1,7 @@
 extends Action
 
 func _ready() -> void:
-	cooldown_time = randf_range(0.5, 2)
+	cooldown_time = randf_range(1, 3)
 	
 func on_trigger(_bypass_cooldown: bool = false):
 	if cooldown_counter > cooldown_time || _bypass_cooldown:
