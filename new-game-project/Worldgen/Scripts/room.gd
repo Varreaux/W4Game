@@ -453,7 +453,7 @@ func _draw_vline(tl: TileMapLayer, x: int, y0: int, y1: int) -> void:
 	# ===== 在立柱的“最低处”生成门（门的中心对准最低处这一格的中心）=====
 	if door_scene and _props_root:
 		var door_world := _map_cell_center_world(tl, Vector2i(x, last))
-		_spawn_scene_at_world(door_scene, door_world)
+		_spawn_scene_at_world(door_scene, door_world + Vector2.DOWN*72)
 
 
 

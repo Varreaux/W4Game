@@ -5,6 +5,6 @@ func _ready() -> void:
 	
 func on_trigger(_bypass_cooldown: bool = false):
 	if cooldown_counter > cooldown_time || _bypass_cooldown:
-		var jump_force = randf_range(200, 300)
+		var jump_force = randf_range(100, 200)
 		entity.velocity.y = -jump_force
 		cooldown_counter = 0

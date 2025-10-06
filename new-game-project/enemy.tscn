@@ -1,7 +1,120 @@
-[gd_scene load_steps=8 format=3 uid="uid://2oqfqxx5b61g"]
+[gd_scene load_steps=23 format=3 uid="uid://2oqfqxx5b61g"]
 
 [ext_resource type="Script" uid="uid://c767kqehm52q6" path="res://Scripts/Entities/enemy.gd" id="1_7k104"]
 [ext_resource type="Texture2D" uid="uid://8lrsthf1ugg1" path="res://Art Assets/Zombo.png" id="2_4gyqm"]
+
+[sub_resource type="Animation" id="Animation_4gyqm"]
+resource_name = "Idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_qi2p4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_iifgy"]
+resource_name = "Walk"
+length = 0.6
+loop_mode = 1
+step = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_epg4t"]
+resource_name = "Jump"
+step = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_epg4t"]
+_data = {
+&"Idle": SubResource("Animation_4gyqm"),
+&"Jump": SubResource("Animation_epg4t"),
+&"RESET": SubResource("Animation_qi2p4"),
+&"Walk": SubResource("Animation_iifgy")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4gyqm"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qi2p4"]
+animation = &"Jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_iifgy"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_epg4t"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3yqyl"]
+advance_mode = 2
+advance_expression = "!is_on_floor()"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wujgv"]
+advance_mode = 2
+advance_expression = "abs(velocity.x) == 0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hb8ge"]
+advance_mode = 2
+advance_expression = "!is_on_floor()"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_e1ltt"]
+advance_mode = 2
+advance_expression = "is_on_floor()"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4gyqm"]
+advance_mode = 2
+advance_expression = "abs(velocity.x) != 0"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_dxifv"]
+states/Idle/node = SubResource("AnimationNodeAnimation_4gyqm")
+states/Idle/position = Vector2(342, 84)
+states/Jump/node = SubResource("AnimationNodeAnimation_qi2p4")
+states/Jump/position = Vector2(508, 75)
+states/Walk/node = SubResource("AnimationNodeAnimation_iifgy")
+states/Walk/position = Vector2(535, 153)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_epg4t"), "Idle", "Jump", SubResource("AnimationNodeStateMachineTransition_3yqyl"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_wujgv"), "Walk", "Jump", SubResource("AnimationNodeStateMachineTransition_hb8ge"), "Jump", "Idle", SubResource("AnimationNodeStateMachineTransition_e1ltt"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_4gyqm")]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4gyqm"]
 radius = 7.0
@@ -31,6 +144,18 @@ max_health = 3
 position = Vector2(0, -16)
 texture = ExtResource("2_4gyqm")
 flip_h = true
+hframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Art"]
+libraries = {
+&"": SubResource("AnimationLibrary_epg4t")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="Art"]
+deterministic = false
+tree_root = SubResource("AnimationNodeStateMachine_dxifv")
+advance_expression_base_node = NodePath("../..")
+anim_player = NodePath("../AnimationPlayer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -16)
