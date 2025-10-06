@@ -20,7 +20,7 @@ func add_behavior(_behavior: Behavior) -> void:
 	get_node("Behaviors").add_child(_behavior)
 	_behavior.owner = self
 	_behavior.set_entity(self)
-	_behavior.active = true
+	_behavior.set_active(true)
 
 func hurt(_hb: Hitbox):
 	hp -= _hb.damage

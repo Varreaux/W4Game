@@ -31,6 +31,7 @@ func _physics_process(delta):
 	if assign_behaviors_to_self:
 		for _behavior: Behavior in $Behaviors.get_children():
 			_behavior.set_entity(self)
+			_behavior.set_active(true)
 		assign_behaviors_to_self = false
 		
 	if get_player_range() > ACTIVE_RANGE: return

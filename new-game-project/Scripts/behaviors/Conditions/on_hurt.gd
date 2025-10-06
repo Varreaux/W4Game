@@ -9,14 +9,14 @@ var actions = [
 ]
 
 func _enter_tree() -> void:
-	if not init:
-		condition_name = "OnHurt"
+	condition_name = "OnHurt"
+	if not init and get_child_count() == 0:
 		actions.shuffle()
 		var _action_name: String = actions[0]
 		var _action_resource = load("res://Objects/Behaviors/Actions/" + _action_name + ".tscn")
 		var _action_object = _action_resource.instantiate()
 		add_child(_action_object)
-		super._enter_tree()
+	super._enter_tree()
 
 func set_entity(_entity: Entity):
 	super.set_entity(_entity)

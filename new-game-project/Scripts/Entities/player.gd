@@ -214,7 +214,8 @@ func _on_behavior_selected(_behavior: Behavior):
 		player_behaviors_menu_on = false
 	else:
 		current_enemy.get_node("Behaviors").remove_child(_behavior)
-		_behavior.active = false
+		_behavior.set_active(false)
+		_behavior.set_entity(null)
 		held_behavior = _behavior
 		hand.add_child(_behavior)
 		hand.visible = true

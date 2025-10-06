@@ -8,14 +8,14 @@ var actions = [
 	"walk_action"
 ]
 func _enter_tree() -> void:
-	if not init:
-		condition_name = "Forever"
+	condition_name = "Forever"
+	if not init and get_child_count() == 0:
 		actions.shuffle()
 		var _action_name: String = actions[0]
 		var _action_resource = load("res://Objects/Behaviors/Actions/" + _action_name + ".tscn")
 		var _action_object = _action_resource.instantiate()
 		add_child(_action_object)
-		super._enter_tree()
+	super._enter_tree()
 	
 func _process(_delta):
 	if not active: return
