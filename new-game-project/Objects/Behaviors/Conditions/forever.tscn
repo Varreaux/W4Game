@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dh8muxnyfwwx2"]
+
+[ext_resource type="Script" uid="uid://dqren4n6kgl4a" path="res://Scripts/behaviors/Conditions/forever.gd" id="1_agqdh"]
+
+[node name="Forever" type="Node2D"]
+script = ExtResource("1_agqdh")

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2xrjq3rirpu5"]
+
+[ext_resource type="Script" uid="uid://cogjgv8wiwcfv" path="res://Scripts/behaviors/Actions/explode.gd" id="1_08cs8"]
+
+[node name="Explode" type="Node2D"]
+script = ExtResource("1_08cs8")
+cooldown_time = 1.0

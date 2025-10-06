@@ -1,7 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://hmdl7ev8bxit"]
+[gd_scene load_steps=4 format=3 uid="uid://hmdl7ev8bxit"]
 
 [ext_resource type="PackedScene" uid="uid://cr1qqrothewpa" path="res://Worldgen/scenes/room.tscn" id="1_40ljq"]
+[ext_resource type="PackedScene" uid="uid://bpvh71wfng7g6" path="res://Objects/Entities/player.tscn" id="2_jso7u"]
+[ext_resource type="PackedScene" uid="uid://2oqfqxx5b61g" path="res://enemy.tscn" id="3_5nq1w"]
 
 [node name="Game" type="Node2D"]
+texture_filter = 1
 
 [node name="Room" parent="." instance=ExtResource("1_40ljq")]
+
+[node name="Room2" parent="." instance=ExtResource("1_40ljq")]
+position = Vector2(1152, 0)
+
+[node name="Room3" parent="." instance=ExtResource("1_40ljq")]
+position = Vector2(0, 528)
+
+[node name="Room4" parent="." instance=ExtResource("1_40ljq")]
+position = Vector2(1152, 528)
+
+[node name="player" parent="." instance=ExtResource("2_jso7u")]
+position = Vector2(84, 284)
+
+[node name="Enemy" parent="." instance=ExtResource("3_5nq1w")]
+position = Vector2(246, 280)
+
+[node name="Enemy2" parent="." instance=ExtResource("3_5nq1w")]
+position = Vector2(424, 270)

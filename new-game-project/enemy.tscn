@@ -1,29 +1,66 @@
-[gd_scene load_steps=3 format=3 uid="uid://2oqfqxx5b61g"]
+[gd_scene load_steps=8 format=3 uid="uid://2oqfqxx5b61g"]
 
 [ext_resource type="Script" uid="uid://c767kqehm52q6" path="res://Scripts/Entities/enemy.gd" id="1_7k104"]
+[ext_resource type="Texture2D" uid="uid://8lrsthf1ugg1" path="res://Art Assets/Zombo.png" id="2_4gyqm"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4gyqm"]
+radius = 7.0
+height = 32.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4gyqm"]
-size = Vector2(36, 36)
+size = Vector2(12, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0mvyc"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2cxmk"]
+bg_color = Color(0.6360612, 0, 0.09554685, 1)
+
+[sub_resource type="Theme" id="Theme_4gyqm"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_0mvyc")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_2cxmk")
 
 [node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
+texture_filter = 1
 collision_layer = 2
 script = ExtResource("1_7k104")
+gravity = 600.0
+max_health = 3
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Art" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+texture = ExtResource("2_4gyqm")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -16)
+shape = SubResource("CapsuleShape2D_4gyqm")
+
+[node name="Behaviors" type="Node2D" parent="."]
+position = Vector2(0, -16)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(0, -16)
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_4gyqm")
+
+[node name="HPBar" type="ProgressBar" parent="."]
+z_index = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -18.0
-offset_top = -18.0
-offset_right = 18.0
-offset_bottom = 18.0
+offset_left = -10.0
+offset_top = 1.0
+offset_right = 10.0
+offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.776576, 0.23140684, 0.30207357, 1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_4gyqm")
-
-[node name="Behaviors" type="Node2D" parent="."]
+theme = SubResource("Theme_4gyqm")
+max_value = 1.0
+value = 0.28
+show_percentage = false

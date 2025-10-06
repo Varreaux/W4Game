@@ -38,31 +38,6 @@ texture = ExtResource("1_36trf")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_14vil"]
 texture = SubResource("CompressedTexture2D_ffxv4")
-0:0/0 = 0
-1:0/0 = 0
-2:0/0 = 0
-3:0/0 = 0
-4:0/0 = 0
-6:0/0 = 0
-7:0/0 = 0
-0:1/0 = 0
-1:1/0 = 0
-2:1/0 = 0
-3:1/0 = 0
-4:1/0 = 0
-5:1/0 = 0
-6:1/0 = 0
-7:1/0 = 0
-0:2/0 = 0
-1:2/0 = 0
-2:2/0 = 0
-3:2/0 = 0
-4:2/0 = 0
-5:2/0 = 0
-6:2/0 = 0
-7:2/0 = 0
-6:3/0 = 0
-7:3/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_85yof"]
 physics_layer_0/collision_layer = 1
@@ -94,7 +69,9 @@ tile_set = SubResource("TileSet_85yof")
 [node name="laddersDoors" type="Node2D" parent="."]
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_mask = 2
+visible = false
+collision_layer = 0
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(575, 391)

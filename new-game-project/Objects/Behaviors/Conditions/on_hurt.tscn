@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://nm1s6d46idi1"]
+
+[ext_resource type="Script" uid="uid://deiyvcvodlp7n" path="res://Scripts/behaviors/Conditions/on_hurt.gd" id="1_itgis"]
+
+[node name="OnHurt" type="Node2D"]
+script = ExtResource("1_itgis")

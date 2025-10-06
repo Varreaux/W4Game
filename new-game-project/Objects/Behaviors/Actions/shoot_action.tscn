@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwoqqj7h5h3ts"]
+
+[ext_resource type="Script" uid="uid://boo223vqlflti" path="res://Scripts/behaviors/Actions/shoot.gd" id="1_oycih"]
+
+[node name="Shoot" type="Node2D"]
+script = ExtResource("1_oycih")
+cooldown_time = 1.0

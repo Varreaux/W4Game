@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bpvh71wfng7g6"]
+[gd_scene load_steps=28 format=3 uid="uid://bpvh71wfng7g6"]
 
 [ext_resource type="Script" uid="uid://cukb00ar2iev7" path="res://Scripts/Entities/player.gd" id="1_n740s"]
 [ext_resource type="Texture2D" uid="uid://73wrqxje0h51" path="res://Art Assets/Player.png" id="2_6s7bg"]
@@ -131,19 +131,33 @@ font_size = 6
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6s7bg"]
 size = Vector2(11, 8)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0mvyc"]
+size = Vector2(12, 24)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0mvyc"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2cxmk"]
+bg_color = Color(0.6360612, 0, 0.09554685, 1)
+
+[sub_resource type="Theme" id="Theme_8pv5m"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_0mvyc")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_2cxmk")
+
 [node name="player" type="CharacterBody2D"]
 texture_filter = 1
 collision_layer = 2
 script = ExtResource("1_n740s")
 move_speed = 100.0
 jump_power = -250.0
-gravity = 600.0
 gravity_shorthop = 1200.0
 hand_shoot_speed = 300.0
-hand_shoot_time = 0.2
+hand_shoot_time = 0.3
 hand_idle_time = 0.1
 behaviors_menu_position = Vector2(-20, 40)
 ball_throw_power = 250.0
+gravity = 600.0
+max_health = 3
 
 [node name="Art" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -169,7 +183,6 @@ shape = SubResource("CapsuleShape2D_6s7bg")
 
 [node name="Hand" type="Area2D" parent="HandParent"]
 texture_filter = 1
-position = Vector2(49, -12)
 collision_layer = 0
 collision_mask = 2
 
@@ -219,5 +232,31 @@ offset_bottom = 40.0
 zoom = Vector2(3, 3)
 
 [node name="Behaviors" type="Node2D" parent="."]
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_0mvyc")
+
+[node name="HPBar" type="ProgressBar" parent="."]
+z_index = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = 1.0
+offset_right = 10.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_8pv5m")
+max_value = 1.0
+value = 0.28
+show_percentage = false
 
 [connection signal="body_entered" from="HandParent/Hand" to="." method="_on_hand_body_entered"]

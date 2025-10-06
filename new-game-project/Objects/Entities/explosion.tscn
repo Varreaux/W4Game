@@ -1,0 +1,91 @@
+[gd_scene load_steps=7 format=3 uid="uid://cyswgyj45oqa3"]
+
+[ext_resource type="Script" uid="uid://70mvwcdklhlv" path="res://Scripts/Entities/animatedhitbox.gd" id="1_7dvss"]
+[ext_resource type="Texture2D" uid="uid://b6dw3v4qeioa4" path="res://Art Assets/explosion.png" id="2_7dvss"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7dvss"]
+radius = 48.0
+
+[sub_resource type="Animation" id="Animation_n01qr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Art:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0009999999),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_7dvss"]
+resource_name = "hitbox"
+length = 0.45
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Art:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.049999997, 0.099999994, 0.15, 0.19999999, 0.25, 0.3, 0.35, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [2, 4, 5, 6, 7, 8, 9, 10, 11]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l60jb"]
+_data = {
+&"RESET": SubResource("Animation_n01qr"),
+&"hitbox": SubResource("Animation_7dvss")
+}
+
+[node name="Explosion" type="Area2D"]
+collision_layer = 8
+collision_mask = 17
+script = ExtResource("1_7dvss")
+damage = 1.0
+
+[node name="Art" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_7dvss")
+hframes = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5707964
+shape = SubResource("CircleShape2D_7dvss")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_l60jb")
+}
+autoplay = "hitbox"

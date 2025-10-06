@@ -10,3 +10,6 @@ func set_entity(_entity: Entity):
 
 func set_active(_active: bool):
 	active = _active
+
+func get_behavior_name() -> String:
+	return name
