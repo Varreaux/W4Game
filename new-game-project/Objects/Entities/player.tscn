@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bpvh71wfng7g6"]
+[gd_scene load_steps=32 format=3 uid="uid://bpvh71wfng7g6"]
 
 [ext_resource type="Script" uid="uid://cukb00ar2iev7" path="res://Scripts/Entities/player.gd" id="1_n740s"]
 [ext_resource type="Texture2D" uid="uid://73wrqxje0h51" path="res://Art Assets/Player.png" id="2_6s7bg"]
@@ -131,18 +131,32 @@ font_size = 6
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6s7bg"]
 size = Vector2(11, 8)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0mvyc"]
-size = Vector2(12, 24)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0mvyc"]
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2cxmk"]
-bg_color = Color(0.6360612, 0, 0.09554685, 1)
+bg_color = Color(0.86655325, 0.00023523904, 0.1441248, 1)
 
 [sub_resource type="Theme" id="Theme_8pv5m"]
 ProgressBar/styles/background = SubResource("StyleBoxFlat_0mvyc")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_2cxmk")
+
+[sub_resource type="LabelSettings" id="LabelSettings_0mvyc"]
+font = ExtResource("5_0mvyc")
+font_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8pv5m"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hdqis"]
+bg_color = Color(0, 0.6462255, 0.36374953, 1)
+
+[sub_resource type="Theme" id="Theme_vhsen"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_8pv5m")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_hdqis")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0mvyc"]
+size = Vector2(12, 24)
 
 [node name="player" type="CharacterBody2D" groups=["player"]]
 texture_filter = 1
@@ -234,6 +248,73 @@ offset_bottom = 40.0
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
 
+[node name="HPBar" type="ProgressBar" parent="Camera2D"]
+z_index = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -99.0
+offset_right = -75.0
+offset_bottom = -94.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_8pv5m")
+max_value = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="HP" type="Label" parent="Camera2D/HPBar"]
+layout_mode = 0
+offset_left = 2.0
+offset_right = 50.0
+offset_bottom = 23.0
+text = "HP"
+label_settings = SubResource("LabelSettings_0mvyc")
+
+[node name="EXPBar" type="ProgressBar" parent="Camera2D"]
+z_index = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -135.0
+offset_top = -90.0
+offset_right = -75.0
+offset_bottom = -85.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_vhsen")
+max_value = 1.0
+show_percentage = false
+
+[node name="Level" type="Label" parent="Camera2D/EXPBar"]
+layout_mode = 0
+offset_left = -26.0
+offset_right = 22.0
+offset_bottom = 23.0
+text = "Lv. 1"
+label_settings = SubResource("LabelSettings_0mvyc")
+
+[node name="XP" type="Label" parent="Camera2D/EXPBar"]
+layout_mode = 0
+offset_left = 3.0
+offset_right = 51.0
+offset_bottom = 23.0
+text = "XP"
+label_settings = SubResource("LabelSettings_0mvyc")
+
+[node name="Abilities" type="Label" parent="Camera2D"]
+offset_left = -138.0
+offset_top = -81.0
+offset_right = -74.0
+offset_bottom = -58.0
+text = "Abilities: 0/3"
+label_settings = SubResource("LabelSettings_0mvyc")
+
 [node name="Behaviors" type="Node2D" parent="."]
 
 [node name="Hurtbox" type="Area2D" parent="."]
@@ -252,24 +333,6 @@ collision_mask = 64
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LadderDetector"]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_0mvyc")
-
-[node name="HPBar" type="ProgressBar" parent="."]
-z_index = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -10.0
-offset_top = 1.0
-offset_right = 10.0
-offset_bottom = 4.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = SubResource("Theme_8pv5m")
-max_value = 1.0
-value = 0.28
-show_percentage = false
 
 [connection signal="body_entered" from="HandParent/Hand" to="." method="_on_hand_body_entered"]
 [connection signal="area_entered" from="LadderDetector" to="." method="_on_ladder_detector_area_entered"]

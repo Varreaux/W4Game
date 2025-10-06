@@ -22,6 +22,8 @@ func set_entity(_entity: Entity):
 	super.set_entity(_entity)
 	if signal_attached_to != null:
 		signal_attached_to.was_hurt.disconnect(trigger_no_cooldown)
-	signal_attached_to = _entity
-	signal_attached_to.was_hurt.connect(trigger_no_cooldown)
+		signal_attached_to = null
+	if _entity != null:
+		signal_attached_to = _entity
+		signal_attached_to.was_hurt.connect(trigger_no_cooldown)
 	

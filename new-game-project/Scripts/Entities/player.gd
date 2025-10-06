@@ -34,11 +34,17 @@ var held_behavior: Behavior
 var on_ladder: bool = false
 var touching_ladder: bool = false
 var ladder: Node2D
+var level: int = 1
+var experience: int = 0
+@onready var xp_bar: ProgressBar = $Camera2D/EXPBar
+@onready var lvl_label: Label = $Camera2D/EXPBar/Level
+@onready var abilities: Label = $Camera2D/Abilities
 
 static var instance: Player
 
 func _ready():
-	super._ready()
+	hp = max_health
+	hp_bar = $Camera2D/HPBar
 	hand.monitoring = false
 	hand.visible = false
 	hand_state = HAND_INACTIVE
@@ -74,6 +80,10 @@ func _physics_process(delta: float) -> void:
 		global_position.x = ladder.global_position.x + 16
 		var _vert: float = Input.get_axis("Up", "Down")
 		velocity.y = _vert * ladder_climb_speed
+		var _hor: float = Input.get_axis("Left", "Right")
+		#Sprite flip
+		if _hor != 0:
+			$Art.flip_h = true if _hor < 0 else false
 		global_position.y = clamp(global_position.y, ladder.global_position.y, ladder.global_position.y + 160)
 	#Execute movement
 	move_and_slide()
@@ -128,13 +138,17 @@ func get_player_behaviors():
 	return $Behaviors.get_children()
 
 func stock_or_pull():
-	if hand_state == HAND_INACTIVE:
+	if player_behaviors_menu_on:
+		player_behaviors_menu_on = false
+		behavior_menu.visible = false
+		get_tree().paused = false
+	elif hand_state == HAND_INACTIVE:
 		if $Behaviors.get_child_count() == 0: return
 		player_behaviors_menu_on = true
 		player_behaviors = get_player_behaviors()
 		_show_behavior_menu(player_behaviors)
-	if hand_state == HAND_HOLDING:
-		if $Behaviors.get_child_count() >= 4: return
+	elif hand_state == HAND_HOLDING:
+		if $Behaviors.get_child_count() >= 2 + level: return
 		held_behavior.get_parent().remove_child(held_behavior)
 		get_node("Behaviors").add_child(held_behavior)
 		held_behavior.owner = self
@@ -142,6 +156,7 @@ func stock_or_pull():
 		held_behavior.active = true
 		hand_state = HAND_INACTIVE
 		hand.visible = false
+		abilities.text = "Abilities: %d/%d" % [$Behaviors.get_child_count(), 2 + level]
 		
 func attack():
 	if hand_state == HAND_INACTIVE:
@@ -203,7 +218,9 @@ func _show_behavior_menu(behaviors):
 func _on_behavior_selected(_behavior: Behavior):
 	if player_behaviors_menu_on:
 		get_node("Behaviors").remove_child(_behavior)
-		_behavior.active = false
+		_behavior.set_active(false)
+		_behavior.set_entity(null)
+		abilities.text = "Abilities: %d/%d" % [$Behaviors.get_child_count(), 2 + level]
 		held_behavior = _behavior
 		hand.add_child(_behavior)
 		hand_state = HAND_HOLDING
@@ -250,3 +267,13 @@ func hitstop(time_scale: float, duration: float):
 	await get_tree().create_timer(duration * time_scale).timeout
 	Engine.time_scale = 1
 	modulate = Color.WHITE
+
+func gain_exp():
+	experience += 1
+	if(experience >= 5 * level):
+		level += 1
+		experience = 0
+		hp = max_health
+		lvl_label.text = "Lv. %d" % [level]
+	xp_bar.value = (float(experience) / (5.0 * float(level)))
+	

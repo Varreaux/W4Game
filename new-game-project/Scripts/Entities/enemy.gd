@@ -11,15 +11,17 @@ const BEHAVIORS = [
 
 var load_behaviors: bool = true
 var assign_behaviors_to_self: bool = false
-
+var exp_item = preload("res://Objects/Entities/xp.tscn")
+var ability_num: int = 3
 
 func _ready():
 	super._ready()
 	randomize()
 	
 	if(load_behaviors):
-		for behavior_scene in BEHAVIORS:
-			var behavior_instance = behavior_scene.instantiate() as Behavior
+		for i in range(ability_num):
+			var _behavior_scene = BEHAVIORS[randi_range(0,2)]
+			var behavior_instance = _behavior_scene.instantiate() as Behavior
 			$Behaviors.add_child(behavior_instance)
 			behavior_instance.set_entity(self)
 			behavior_instance.set_active(true)	
