@@ -38,7 +38,7 @@ func _spawn_room(parent: Node, at_pos: Vector2) -> Room:
 	var inst : Room = room_scene.instantiate()
 	if latest_room:
 		inst.diagonal_tl_br = !latest_room.diagonal_tl_br
-	parent.add_child(inst)
+	parent.call_deferred("add_child", inst)
 	inst.global_position = at_pos
 	rooms.append(inst)
 	

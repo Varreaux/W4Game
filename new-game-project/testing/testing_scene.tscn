@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://8m7uruhriham"]
 
-[ext_resource type="PackedScene" uid="uid://2oqfqxx5b61g" path="res://enemy.tscn" id="1_gs37m"]
+[ext_resource type="PackedScene" uid="uid://2oqfqxx5b61g" path="res://Objects/Entities/zombo.tscn" id="1_gs37m"]
 [ext_resource type="PackedScene" uid="uid://bpvh71wfng7g6" path="res://Objects/Entities/player.tscn" id="2_rx4tx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rx4tx"]

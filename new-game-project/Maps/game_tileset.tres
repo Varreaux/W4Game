@@ -1,0 +1,43 @@
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://c8en1tdi4t6yr"]
+
+[ext_resource type="Texture2D" uid="uid://cuhpsy2lc2wh7" path="res://Worldgen/sprites/TestTileset.png" id="1_eafi4"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ffxv4"]
+texture = ExtResource("1_eafi4")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ffxv4"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_14vil"]
+texture = SubResource("CompressedTexture2D_ffxv4")
+
+[resource]
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 2
+sources/1 = SubResource("TileSetAtlasSource_ffxv4")
+sources/2 = SubResource("TileSetAtlasSource_14vil")

@@ -127,7 +127,7 @@ func generate() -> void:
 	# 5) Carve side entrances according to the diagonal mode (doors bottom-anchored to layer ground).
 	_carve_side_entrances_by_mode(tl, _bbox, _layers)
 
-	tl.update_internals()
+	tl.call_deferred("update_internals")
 
 # -------------------------------------------------------------------
 # Layer detection with wall thickness and side outer-wall thickness

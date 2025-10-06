@@ -12,6 +12,6 @@ func on_trigger(_bypass_cooldown: bool = false):
 	
 
 func _physics_process(_delta: float) -> void:
-	if active:
+	if active and entity != null:
 		if entity.is_on_wall():
 			direction = -direction

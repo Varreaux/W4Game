@@ -1,8 +1,8 @@
-[gd_scene load_steps=24 format=3 uid="uid://2oqfqxx5b61g"]
+[gd_scene load_steps=24 format=3 uid="uid://b4eqyouvfqluv"]
 
-[ext_resource type="Script" uid="uid://c767kqehm52q6" path="res://Scripts/Entities/enemy.gd" id="1_7k104"]
-[ext_resource type="Texture2D" uid="uid://8lrsthf1ugg1" path="res://Art Assets/Zombo.png" id="2_4gyqm"]
-[ext_resource type="Script" uid="uid://cw5moqocd8gpo" path="res://Scripts/Entities/hitbox.gd" id="3_qi2p4"]
+[ext_resource type="Script" uid="uid://dh8lh1wgq1k5a" path="res://Scripts/Entities/slime.gd" id="1_2kfty"]
+[ext_resource type="Texture2D" uid="uid://ciy2q2g1kqsc" path="res://Art Assets/Slime.png" id="2_2kfty"]
+[ext_resource type="Script" uid="uid://cw5moqocd8gpo" path="res://Scripts/Entities/hitbox.gd" id="3_hbfsi"]
 
 [sub_resource type="Animation" id="Animation_4gyqm"]
 resource_name = "Idle"
@@ -134,17 +134,17 @@ bg_color = Color(0.6360612, 0, 0.09554685, 1)
 ProgressBar/styles/background = SubResource("StyleBoxFlat_0mvyc")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_2cxmk")
 
-[node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
+[node name="Slime" type="CharacterBody2D" groups=["enemies"]]
 texture_filter = 1
 collision_layer = 2
 collision_mask = 65
-script = ExtResource("1_7k104")
+script = ExtResource("1_2kfty")
 gravity = 600.0
 max_health = 3
 
 [node name="Art" type="Sprite2D" parent="."]
 position = Vector2(0, -16)
-texture = ExtResource("2_4gyqm")
+texture = ExtResource("2_2kfty")
 flip_h = true
 hframes = 3
 
@@ -178,7 +178,7 @@ shape = SubResource("RectangleShape2D_4gyqm")
 position = Vector2(0, -16)
 collision_layer = 8
 collision_mask = 16
-script = ExtResource("3_qi2p4")
+script = ExtResource("3_hbfsi")
 damage = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ContactHitbox"]

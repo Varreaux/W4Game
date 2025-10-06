@@ -1,12 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://hmdl7ev8bxit"]
+[gd_scene load_steps=7 format=4 uid="uid://hmdl7ev8bxit"]
 
 [ext_resource type="PackedScene" uid="uid://cr1qqrothewpa" path="res://Worldgen/scenes/room.tscn" id="1_40ljq"]
 [ext_resource type="Script" uid="uid://gth5juchv6e5" path="res://Worldgen/Scripts/roomManager.gd" id="1_hyobi"]
+[ext_resource type="TileSet" uid="uid://c8en1tdi4t6yr" path="res://Maps/game_tileset.tres" id="1_mdqsx"]
 [ext_resource type="PackedScene" uid="uid://bpvh71wfng7g6" path="res://Objects/Entities/player.tscn" id="2_jso7u"]
 [ext_resource type="Texture2D" uid="uid://c8mjqdwgveixl" path="res://Art Assets/Wall.png" id="5_mdqsx"]
+[ext_resource type="PackedScene" uid="uid://cusj3ymf0bett" path="res://Worldgen/scenes/door.tscn" id="6_kkdw2"]
 
 [node name="Game" type="Node2D"]
 texture_filter = 1
+
+[node name="Door" parent="." instance=ExtResource("6_kkdw2")]
+position = Vector2(208, 288)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAMAAoAAQAAAAAAAAAMAAsAAQAAAAAAAAAMAAwAAQAAAAAAAAAMAA0AAQAAAAAAAAANAA0AAQAAAAAAAAANAAwAAQAAAAAAAAANAAsAAQAAAAAAAAANAAoAAQAAAAAAAAA=")
+tile_set = ExtResource("1_mdqsx")
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
 z_index = -20
